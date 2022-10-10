@@ -1,5 +1,7 @@
 
-class BaseAccount:
+from abc import ABC, abstractmethod
+
+class BaseAccount(ABC):
     def __init__(self, accountNo:str, interest:float):
         self.__AccountNo = accountNo
         self.__Balance = 0
@@ -7,6 +9,10 @@ class BaseAccount:
 
     def GetSaldo(self)-> int:
         return self.__Balance
+
+    @abstractmethod
+    def Withdraw(self, amount:int)->bool:
+        pass
 
     def GetKontonummer(self)-> int:
         return self.__AccountNo
@@ -39,11 +45,15 @@ class SalaryAccount (BaseAccount): # Lönekonto
 
 
 
+konto3 = BaseAccount("111123", 4.0)
+konto3.Deposit(323)
 
-
-konto2 = SavingsAccount("121213")
 konto1 = SalaryAccount("121212")
 konto1.Deposit(200)
+
+konto2 = SavingsAccount("121213")
 konto2.Deposit(100)
+
+
 print(f"{konto1.GetKontonummer()} : {konto1.GetSaldo()}")
 
